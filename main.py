@@ -15,6 +15,6 @@ st.set_page_config(
 # Criação de um cabeçalho
 st.markdown('''# **Projeto científico**
 
-Por `arthur`, `emanoel` e `lucas`
+Por `arthur`, `emanoel`, `lipe` e `lucas`
 ---
 ''', unsafe_allow_html=True)
