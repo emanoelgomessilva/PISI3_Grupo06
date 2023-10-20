@@ -7,7 +7,7 @@ df = pd.read_csv('data/cardio_data_processed.csv')
 def grafico_barra():
     st.write('**Gráfico de Barra**')
     stacked_data = df.groupby(["cholesterol", "gluc"]).size().reset_index(name="count")
-    fig_stacked = px.bar(stacked_data, x="cholesterol", y="count", color="gluc", barmode="stack", title="Níveis de Colesterol e Glicose")
+    fig_stacked = px.bar(stacked_data, x = "cholesterol", y = "count", color = "gluc", barmode = "stack", title = "Níveis de Colesterol e Glicose")
     st.plotly_chart(fig_stacked)
 
 def grafico_pizza():
@@ -23,7 +23,7 @@ def grafico_pizza():
 
 def grafico_dispersao():
     st.write('**Gráfico de Dispersão**')
-    fig_scatter = px.scatter(df, x='ap_hi', y='ap_lo', title='Pressão Sanguínea Sistólica (ap_hi) e Diastólica (ap_lo)')
+    fig_scatter = px.scatter(df, x = 'ap_hi', y = 'ap_lo', title = 'Pressão Sanguínea Sistólica (ap_hi) e Diastólica (ap_lo)')
     st.plotly_chart(fig_scatter)
 
 
