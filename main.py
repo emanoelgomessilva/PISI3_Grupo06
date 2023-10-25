@@ -9,7 +9,7 @@ st.set_page_config(
         'Get help': "https://streamlit.io",
         'Report a Bug': "https://blog.streamlit.io",
         'About': '''Este é um projeto estudantil feito por alunos da **UFRPE**.
-        Acesse: bsi.ufrpe.br
+        Acesse: [bsi.ufrpe.br](https://sites.google.com/view/bsi-ufrpe)
         '''
         } # type: ignore
 )
