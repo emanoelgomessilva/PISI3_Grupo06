@@ -11,7 +11,7 @@ def grafico_dispersao():
     st.plotly_chart(fig_scatter)
 
 def grafico_barra():
-    st.write('**Gráfico de Barras Empilhadas**')
+    st.write('**Gráfico de Barras**')
 
     category_counts = df['bp_category'].value_counts().reset_index()
     category_counts.columns = ['bp_category', 'count']
@@ -34,7 +34,7 @@ escolha = st.selectbox('**Selecione um gráfico para vizualizar**', ['Dispersão
 if escolha == 'Dispersão':
     st.write('')
     grafico_dispersao()
-elif escolha == 'Setor':
+elif escolha == 'Setores':
     st.write('')
     grafico_setor()
 else:
