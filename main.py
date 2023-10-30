@@ -27,7 +27,6 @@ O projeto se concentra no uso de algoritmos de clusterização e classificação
 - `Emanoel` (emanoel20092009@gmail.com)
 - `Fellipe` (pipo200115@gmail.com)
 - `Lucas` (lucas.dan.melo@gmail.com)
-- `Renan` (renanneji1994@gmail.com)
             
 **Fonte**:
 - [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/colewelkins/cardiovascular-disease?select=cardio_data_processed.csv)
