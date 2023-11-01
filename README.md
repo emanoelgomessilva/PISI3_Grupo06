@@ -25,6 +25,6 @@ O projeto se concentra no uso de algoritmos de clusterização e classificação
   </li>
 
   <li>Rode o sistema:<br>
-    <code>streamlit run Home.py</code>
+    <code>streamlit run main.py</code>
   </li>
 </ol>
