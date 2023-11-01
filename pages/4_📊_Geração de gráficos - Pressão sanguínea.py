@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 
-df = pd.read_csv('data/cardio_data_processed.csv')
+df = pd.read_parquet('data/cardio_data_processed.parquet')
 
 def grafico_dispersao():
     st.write('**Gráfico de Dispersão**')

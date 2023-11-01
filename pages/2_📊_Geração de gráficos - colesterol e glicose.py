@@ -3,7 +3,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 
-df = pd.read_csv('data/cardio_data_processed.csv')
+df = pd.read_parquet('data/cardio_data_processed.parquet')
 
 def grafico_barra():
     cholesterol_labels = {1:'Normal', 2:'Acima do Normal', 3:'Muito Acima do Normal'}

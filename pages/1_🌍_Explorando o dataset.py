@@ -7,7 +7,7 @@ import streamlit as st
 st.write('<h1>ANÁLISE EXPLORATÓRIA</h1>', unsafe_allow_html=True)
 
 def profile():
-    df = pd.read_csv('data/cardio_data_processed.csv')
+    df = pd.read_parquet('data/cardio_data_processed.parquet')
     st.dataframe(df)
     profile = ProfileReport(df, title="Cardio_profile")
     profile.to_file(f"reports/Cardio_profile.html")
