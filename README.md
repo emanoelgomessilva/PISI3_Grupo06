@@ -1,4 +1,4 @@
-# PISI3_Grupo06
+# Projeto Interdisciplinar III
 feito por: Arthur de Barros (arthur.bbsantos@ufrpe.br), Emanoel Gomes (emanoel20092009@gmail.com),
 Fellipe Domingues (pipo200115@gmail.com) e Lucas Daniel Melo (lucas.dan.melo@gmail.com)
 
@@ -10,7 +10,7 @@ O projeto se concentra no uso de algoritmos de clusterização e classificação
 <ol>
   <li>Instale o VSCode.</li>
 
-  <li>Efetue o clone do projeto: <code>CTRL+SHIFT+P > Git:Clone > Clone from GitHub > https://github.com/emanoelgomessilva/PISI3_Grupo06/tree/main</code></li>
+  <li>Efetue o clone do projeto: <code>CTRL+SHIFT+P > Git:Clone > Clone from GitHub > https://github.com/emanoelgomessilva/PISI3_Grupo06</code></li>
 
   <li>Instale o python.</li>
   
