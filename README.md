@@ -1,6 +1,6 @@
 # Projeto Interdisciplinar III
 feito por: Arthur de Barros (arthur.bbsantos@ufrpe.br), Emanoel Gomes (emanoel20092009@gmail.com),
-Fellipe Domingues (pipo200115@gmail.com) e Lucas Daniel Melo (lucas.dan.melo@gmail.com)
+Fellipe Domingues (pipo200115@gmail.com) e Lucas Daniel (lucas.dan.melo@gmail.com)
 
 Este é um trabalho científico voltado à análise de dados, usando um <i>dataset</i> de doenças cardiovasculares.
 
