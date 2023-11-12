@@ -9,6 +9,13 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 df = pd.read_parquet('data/cardio_data_processed.parquet')
 
+st.write('<h1>Clusterização (<i>clustering</i>)</h1>', unsafe_allow_html=True)
+st.write('''Para a geração de grupos, foi usado o método K-means, que separa o <i>dataset</i> em <i>k</i> grupos distintos.
+         Como a quantidade de <i>clusters</i> é subjetiva, para que pudesse ter uma base da quantidade adequada de
+         <i>clusters</i>, foi aplicado o Método do Cotovelo, em que consiste em executar o algoritmo em <i>k</i> vezes, e
+         calcular a inércia (soma das distâncias quadráticas dos pontos para o centro do cluster mais próximo), a partir do
+         ponto que a incércia começa a diminuir de forma mais lenta, é chamado de "cotovelo", o número ideal de <i>clusters</i>.''', unsafe_allow_html=True)
+
 def builder_body():
     elbow_method()
     #silhouette_score()
@@ -44,8 +51,8 @@ def elbow_method():
              Com base no Método do Cotovelo, o número ideal de <i>clusters</i> é: <span style="color:red;">{ideal_k}</span>.
              
              Foi feito também o [Silhouette Score](https://lh3.googleusercontent.com/pw/ADCreHfwH1UJzJwSO__g2QbYlk-1gbSxSN4ckMJXnqWPnFiFyOXsLEpultG2E8Qi9JSL65m-jk-V3wLwuVi91lWdtEZnAj8rzR8-l_tALtQc8QPxt5l6wonJP52up267EKOHDQtpYSLINQlRSgZWiL081a9lHIJgUpmBDEbVuhqW8qnBlYQN6yBtyRYU8kt9Y_QJTfDQKGYvimMNaRWwaT80uYDhtee8IoH_4gV5xWRGJ5KYZJ39JQx6qNKWI2KHWG0sLr02E2XTK-IDVhm7SJ_9bD7uWqS0gxx-RDT-fCVAyEAP4KaHyDSaICvYtWJjKRRJkiyUXxrafKSgEI5JBPZUk3ADUM_TCXr80rHRjVwgcTdaXlpQKLcvFdBY_JsPRH-4I4ZaACTier6qurSvQ-L5-zpd3X5v8FbrHhJv9VPsaNuVvPKt9D1E3KfJleLG38h5EaXTqTj74HLLwBS_PvQMXu1BnkoGSg7oQZzXFkiwrzZMxbo8gviKBlnzya46JCJl30RQCjaCgTb_AMXZHJIwNVuhysC8gNmnKyES_7yTL82agtEAJ6etoXmBilUIR0Usq_uwIVHm4xjzRwPAjzl6WU-NloQaQNB9o-uNWE7KvCPhrK9yVw6KKUY0nyFaADO_SV40swIpfchMBtu42LSS7APR_BfYF-esYr9qNBJQ33y5Uk37Nzbhgskod1FOmiCF-v71feQ_kgAYs05LAG32k-8Ktc4kl40sleHYfRkGvOcNhhL04vq4JZ2yRS32obKONR3ZcisoBhwRC9erJUHjIzvHnqLvIPpShPdLU-SJxyXdOq15lIir5SOSnPtp91sqpGL9yoHIfrLwnxC2RKAjUaLgtoaHdalNxsoXGHa-VWVrojIb1Mx1WP5hD-7BwzOxYgn3l2CzxOiajF5v5fPytAwd6A=w1315-h559-s-no?authuser=0), 
-             para avaliar a qualidade dos <i>clusters</i>. Utilizando esse método, foi feito o cálculo do <i>score</i> e 
-             determinado que o número de <i>clusters</i> ideal seria <span style="color:red;">3</span>.''', 
+             para avaliar a qualidade dos <i>clusters</i>. Utilizando esse método, é feito o cálculo do <i>score</i> para cada número de <i>cluster</i>,
+             o <i>cluster</i> com maior <i>score</i> é o ideal, que nesse caso são <span style="color:red;">3</span> <i>clusters</i>.''', 
              unsafe_allow_html=True)
 
     st.write('----')

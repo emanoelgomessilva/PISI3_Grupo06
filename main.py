@@ -23,10 +23,10 @@ Este é um trabalho científico voltado à análise de dados, usando um <i>datas
 O projeto se concentra no uso de algoritmos de clusterização e classificação para entender padrões e prever a presença de doenças cardiovasculares em pacientes.            
 
 **Membros do Projeto:**
-- `Arthur` (arthur.bbsantos@ufrpe.br)
-- `Emanoel` (emanoel20092009@gmail.com)
-- `Fellipe` (pipo200115@gmail.com)
-- `Lucas` (lucas.dan.melo@gmail.com)
+- `Arthur de Barros` (arthur.bbsantos@ufrpe.br)
+- `Emanoel Gomes` (emanoel20092009@gmail.com)
+- `Fellipe Domingues` (pipo200115@gmail.com)
+- `Lucas Daniel` (lucas.dan.melo@gmail.com)
             
 **Fontes**:
 - [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/colewelkins/cardiovascular-disease?select=cardio_data_processed.csv)
