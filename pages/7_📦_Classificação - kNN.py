@@ -1,12 +1,11 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
-import matplotlib.pyplot as plt
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.preprocessing import LabelEncoder
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import LabelEncoder
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+
 
 df = pd.read_parquet('data/cvd_cleaned.parquet')
 df = df.drop_duplicates()
