@@ -13,7 +13,7 @@ st.write('<h1>Clusterização (<i>clustering</i>)</h1>', unsafe_allow_html=True)
 st.write('''Para a geração de grupos, foi usado o método K-means, que separa o <i>dataset</i> em <i>k</i> grupos distintos.
          Como a quantidade de <i>clusters</i> é subjetiva, para que pudesse ter uma base da quantidade adequada de
          <i>clusters</i>, foi aplicado o Método do Cotovelo, em que consiste em executar o algoritmo em <i>k</i> vezes, e
-         calcular a inércia (soma das distâncias quadráticas dos pontos para o centro do cluster mais próximo), a partir do
+         calcular a inércia (soma das distâncias quadráticas dos pontos para o centro do <i>cluster</i> mais próximo), a partir do
          ponto que a incércia começa a diminuir de forma mais lenta, é chamado de "cotovelo", o número ideal de <i>clusters</i>.''', unsafe_allow_html=True)
 
 def builder_body():

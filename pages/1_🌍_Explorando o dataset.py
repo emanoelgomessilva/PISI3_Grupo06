@@ -7,7 +7,7 @@ import streamlit as st
 st.write('<h1>ANÁLISE EXPLORATÓRIA</h1>'+\
     '''<p>Trazemos nessa página uma primeira visão e análise dos nossos datasets, em que constam
     a visão em tabela dos dados de estudo e o Perfil (com gráficos e informações úteis) do dataset em si </p>
-    <p>Lib utilizada <b>YData Profiling</b>(antigo <i>Pandas Profiling</i> <code>v=4.6.1</code>.</p>
+    <p>Lib utilizada <b>YData Profiling</b>(antigo <i>Pandas Profiling</i> <code>v=4.6.1</code>).</p>
     ''', unsafe_allow_html=True)
 
 def profile():
@@ -39,6 +39,6 @@ def print_profile2():
 
 profile()
 print_profile()
-
+st.write('----')
 profile2()
 print_profile2()

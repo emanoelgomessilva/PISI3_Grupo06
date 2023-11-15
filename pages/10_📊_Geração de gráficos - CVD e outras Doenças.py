@@ -4,6 +4,7 @@ import plotly.express as px
 
 value = 'Yes'
 df = pd.read_parquet('data/cvd_cleaned.parquet').query('Heart_Disease == @value')
+df = df.drop_duplicates()
 
 
 def grafico_pizza():

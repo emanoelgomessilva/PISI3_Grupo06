@@ -3,6 +3,7 @@ import streamlit as st
 import plotly.express as px
 
 df = pd.read_parquet('data/cvd_cleaned.parquet')
+df = df.drop_duplicates()
 
 def grafico_pizza():
     st.write('**Gráfico de Pizza**')
