@@ -2,7 +2,8 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 
-df = pd.read_parquet('data/cardio_data_processed.parquet')
+value = 1
+df = pd.read_parquet('data/cardio_data_processed.parquet').query('cardio == @value')
 
 def grafico_bubble():
     st.write('OBS: Gênero 1 = <span style="color:red;">feminino</span> e Gênero 2 = <span style="color:blue;">masculino.</span>', unsafe_allow_html = True)
@@ -14,7 +15,7 @@ def grafico_bubble():
 
     grouped_data = df.groupby(['idade', 'gender', 'cardio'], observed = True).size().reset_index(name='count')
 
-    fig = px.scatter(grouped_data, x = 'idade', y = 'gender', text = 'idade', color = 'cardio', size = 'count', size_max = 100, opacity = 0.75, color_continuous_scale=['#6A1B9A', '#FFC107'], labels = {'gender': 'Gênero', 'cardio': 'Doença Cardiovascular'})
+    fig = px.scatter(grouped_data, x = 'idade', y = 'gender', text = 'idade', color = 'cardio', size = 'count', size_max = 100, opacity = 0.75, color_continuous_scale=['#4682B4', '#00FFFF'], labels = {'gender': 'Gênero', 'cardio': 'Doença Cardiovascular'})
     fig.update_layout(xaxis_title = 'Idade', yaxis_title = 'Gênero', showlegend = True)
     st.plotly_chart(fig, use_container_width = True)
 

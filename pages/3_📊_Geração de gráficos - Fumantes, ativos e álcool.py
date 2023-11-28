@@ -2,7 +2,8 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 
-df = pd.read_parquet('data/cardio_data_processed.parquet')
+value = 1
+df = pd.read_parquet('data/cardio_data_processed.parquet').query('cardio == @value')
 
 def grafico_pizza():
     st.write('**Gráfico de Pizza**')

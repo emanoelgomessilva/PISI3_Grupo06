@@ -2,7 +2,9 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 
-df = pd.read_parquet('data/cardio_data_processed.parquet')
+value = 1
+df = pd.read_parquet('data/cardio_data_processed.parquet').query('cardio == @value')
+df = df.rename(columns={'bp_category': 'Categorias'})
 
 def grafico_dispersao():
     st.write('**Gráfico de Dispersão**')
@@ -13,17 +15,17 @@ def grafico_dispersao():
 def grafico_barra():
     st.write('**Gráfico de Barras**')
 
-    category_counts = df['bp_category'].value_counts().reset_index()
-    category_counts.columns = ['bp_category', 'count']
+    category_counts = df['Categorias'].value_counts().reset_index()
+    category_counts.columns = ['Categorias', 'count']
     category_counts = category_counts.sort_values(by = 'count', ascending = False)
 
-    fig_stacked = px.bar(category_counts, x = 'bp_category', y = 'count', title = "Distribuição de Pressão Sanguínea nas Categorias", color = 'bp_category', labels = {"count": "Contagem"}, category_orders = {"bp_category": category_counts['bp_category'].tolist()})
+    fig_stacked = px.bar(category_counts, x = 'Categorias', y = 'count', title = "Distribuição de Pressão Sanguínea nas Categorias", color = 'Categorias', labels = {"count": "Contagem"}, category_orders = {"Categorias": category_counts['Categorias'].tolist()})
     st.plotly_chart(fig_stacked)
 
 def grafico_setor():
     st.write('**Gráfico de Setores**')
 
-    fig_donut = px.pie(df, names = 'bp_category', title = 'Porcentagem das Categorias de Pressão Sanguínea', hole = 0.3)
+    fig_donut = px.pie(df, names = 'Categorias', title = 'Porcentagem das Categorias de Pressão Sanguínea', hole = 0.3)
     colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
 
     fig_donut.update_traces(marker = dict(colors = colors))

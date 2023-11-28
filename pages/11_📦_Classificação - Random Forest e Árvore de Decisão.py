@@ -68,7 +68,7 @@ def classification():
     accuracy_train = accuracy_score(y_train, y_train_pred)
     accuracy_test = accuracy_score(y_test, y_test_pred)
 
-    st.write(f"A porcentagem de acerto para o treino foi: {accuracy_train:.2%}")
-    st.write(f"A porcentagem de acerto para o teste foi: {accuracy_test:.2%}")
+    st.write(f"A porcentagem de acerto para o treino foi: <span style='color:red;'>{accuracy_train:.2%}</span>", unsafe_allow_html = True)
+    st.write(f"A porcentagem de acerto para o teste foi: <span style='color:red;'>{accuracy_test:.2%}</span>", unsafe_allow_html = True)
 
 classification()
