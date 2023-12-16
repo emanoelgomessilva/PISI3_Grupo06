@@ -5,14 +5,14 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 st.write('<h1>Classificação</h1>', unsafe_allow_html=True)
 st.write('''Para essa classificação, é usado alguns algoritmos supervisionados: K-Nearest Neighbors (kNN), Suport Vector Machine (SVM),
          Random Forest e Árvore de Decisão (<i>Decision Tree</i>). As colunas usadas são colunas referentes a 
-         existência ou ausência de outras enfermidades, como câncer de pele, depressão, artrite, diabetes e de 
-         mais cânceres, a fim de acertar as ocorrências da coluna que indica presença de doença cardiovascular - 
+         existência ou ausência de outras enfermidades, como câncer de pele, depressão, artrite, diabetes e 
+         demais cânceres, a fim de acertar as ocorrências da coluna que indica presença de doença cardiovascular - 
          chamado também de coluna <i>target</i>. Após essa predição, é mostrado as porcentagens de acerto das 
          amostras de treino e de teste.''', unsafe_allow_html=True)
 
@@ -20,6 +20,8 @@ def classification():
     df = pd.read_parquet('data/cvd_cleaned.parquet')
     df = df.drop_duplicates()
 
+    df['Diabetes'] = df['Diabetes'].replace({'Yes, but female told only during pregnancy': 'Yes', 'No, pre-diabetes or borderline diabetes': 'No'})
+    
     df['Heart_Disease'] = LabelEncoder().fit_transform(df['Heart_Disease'])
     df['Skin_Cancer'] = LabelEncoder().fit_transform(df['Skin_Cancer'])
     df['Other_Cancer'] = LabelEncoder().fit_transform(df['Other_Cancer'])
@@ -81,6 +83,9 @@ def classification():
         st.write(f"A porcentagem de acerto para o treino foi: <span style='color:red;'>{accuracy_train:.2%}</span>", unsafe_allow_html = True)
         st.write(f"A porcentagem de acerto para o teste foi: <span style='color:red;'>{accuracy_test:.2%}</span>", unsafe_allow_html = True)
 
+        st.write("**Métricas de Classificação:**")
+        st.table(pd.DataFrame(classification_report(y_test, y_test_pred, output_dict=True)).T)
+
         st.write('----')
 
         conf_matrix = confusion_matrix(y_test, y_test_pred)
@@ -135,7 +140,7 @@ def classification():
                         características para melhorar a eficácia da predição.''', unsafe_allow_html=True)
             st.table(feature_importance)
         elif algorithm == "kNN":
-            st.write('''Não foi possível gerar a <i>feature importance</i> do algoritmo kNN''', unsafe_allow_html=True)
+            st.write('''Não foi possível gerar a <i>feature importance</i> do algoritmo kNN.''', unsafe_allow_html=True)
 
         
 
