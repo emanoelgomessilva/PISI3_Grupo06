@@ -2,7 +2,7 @@
 feito por: Arthur de Barros (arthur.bbsantos@ufrpe.br), Emanoel Gomes (emanoel20092009@gmail.com),
 Fellipe Domingues (pipo200115@gmail.com) e Lucas Daniel (lucas.dan.melo@gmail.com)
 
-Este é um trabalho científico voltado à análise de dados, usando um <i>dataset</i> de doenças cardiovasculares.
+Este é um trabalho científico voltado à análise de dados, usando dois <i>datasets</i> de doenças cardiovasculares.
 
 O projeto se concentra no uso de algoritmos de clusterização e classificação para entender padrões e prever a presença de doenças cardiovasculares em pacientes.
 
@@ -10,7 +10,7 @@ O projeto se concentra no uso de algoritmos de clusterização e classificação
 <ol>
   <li>Instale o VSCode.</li>
 
-  <li>Efetue o clone do projeto: <code>CTRL+SHIFT+P > Git:Clone > Clone from GitHub > https://github.com/emanoelgomessilva/PISI3_Grupo06</code></li>
+  <li>Efetue o clone do projeto: <code>CTRL + SHIFT + P > Git:Clone > Clone from GitHub > https://github.com/emanoelgomessilva/PISI3_Grupo06</code></li>
 
   <li>Instale o python.</li>
   
