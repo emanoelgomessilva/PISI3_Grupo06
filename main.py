@@ -2,7 +2,7 @@ import streamlit as st
 
 # Ajuste da página geral
 st.set_page_config(
-    page_title = 'Convênios',
+    page_title = 'Projeto',
     page_icon = ':books:',
     layout = 'wide',
     menu_items= {
@@ -16,15 +16,20 @@ st.set_page_config(
 
 # Criação de um cabeçalho
 st.markdown('''
-# **Modelagem de dados para a base de Convênios do governo federal**
+# **Projeto Científico: Análise de Doenças Cardiovasculares**
 
-Este é um projeto que utiliza a base de dados de Convênios do governo federal para a construção de um Data Ware House
+Este é um trabalho científico voltado à análise de dados, usando alguns <i>datasets</i> de doenças cardiovasculares.
+
+O projeto se concentra no uso de algoritmos de clusterização e classificação para entender padrões e prever a presença de doenças cardiovasculares em pacientes.            
 
 **Membros do Projeto:**
-- `Aurineque`
+- `Arthur de Barros` (arthur.bbsantos@ufrpe.br)
 - `Emanoel Gomes` (emanoel20092009@gmail.com)
-- `Guilherme`
-- `Júlia`
-- `Pedro`
+- `Fellipe Domingues` (pipo200115@gmail.com)
+- `Lucas Daniel` (lucas.dan.melo@gmail.com)
+            
+**Fontes**:
+- [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/colewelkins/cardiovascular-disease?select=cardio_data_processed.csv)
+- [Cardiovascular Diseases Risk Prediction Dataset](https://www.kaggle.com/datasets/alphiree/cardiovascular-diseases-risk-prediction-dataset/data)
 ---
 ''', unsafe_allow_html=True)
