@@ -18,7 +18,7 @@ st.set_page_config(
 st.markdown('''
 # **Projeto Científico: Análise de Doenças Cardiovasculares**
 
-Este é um trabalho científico voltado à análise de dados, usando alguns <i>datasets</i> de doenças cardiovasculares.
+Este é um trabalho científico voltado à análise de dados, usando dois <i>datasets</i> de doenças cardiovasculares.
 
 O projeto se concentra no uso de algoritmos de clusterização e classificação para entender padrões e prever a presença de doenças cardiovasculares em pacientes.            
 

@@ -5,8 +5,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 st.write('<h1>Classificação</h1>', unsafe_allow_html=True)
 st.write('''Para essa classificação, é usado alguns algoritmos supervisionados: K-Nearest Neighbors (kNN), Suport Vector Machine (SVM),

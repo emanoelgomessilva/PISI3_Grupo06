@@ -18,7 +18,7 @@ st.write('''Para a geração de grupos, foi usado o método K-means, que separa 
 
 def builder_body():
     elbow_method()
-    #silhouette_score()
+    #calculate_silhouette_score()
     Kmeans()
 
 def elbow_method():
@@ -57,7 +57,7 @@ def elbow_method():
 
     st.write('----')
 
-def silhouette_score():
+def calculate_silhouette_score():
     df_silhouette = df[['age_years', 'bp_category', 'cholesterol', 'gluc', 'alco', 'active', 'smoke', 'bmi']]
 
     df_silhouette['bp_category'] = LabelEncoder().fit_transform(df_silhouette['bp_category'])
