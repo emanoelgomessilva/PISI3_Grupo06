@@ -14,21 +14,35 @@ def grafico_dispersao():
 
 def grafico_barra():
     st.write('**Gráfico de Barras**')
-
+    
+    df['Categorias'] = df['Categorias'].replace({
+            'Hypertension Stage 1': 'Hipertensão Nível 1',
+            'Hypertension Stage 2': 'Hipertensão Nível 2',
+            'Elevated': 'Elevado'
+        })
+    
     category_counts = df['Categorias'].value_counts().reset_index()
     category_counts.columns = ['Categorias', 'count']
     category_counts = category_counts.sort_values(by = 'count', ascending = False)
 
-    fig_stacked = px.bar(category_counts, x = 'Categorias', y = 'count', title = "Distribuição de Pressão Sanguínea nas Categorias", color = 'Categorias', labels = {"count": "Contagem"}, category_orders = {"Categorias": category_counts['Categorias'].tolist()})
+    color_scale = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+
+    fig_stacked = px.bar(category_counts, x = 'Categorias', y = 'count', color = 'Categorias', color_discrete_sequence=color_scale, labels = {"count": "Contagem"}, category_orders = {"Categorias": category_counts['Categorias'].tolist()})
     st.plotly_chart(fig_stacked)
 
 def grafico_setor():
     st.write('**Gráfico de Setores**')
 
-    fig_donut = px.pie(df, names = 'Categorias', title = 'Porcentagem das Categorias de Pressão Sanguínea', hole = 0.3)
+    df['Categorias'] = df['Categorias'].replace({
+            'Hypertension Stage 1': 'Hipertensão Nível 1',
+            'Hypertension Stage 2': 'Hipertensão Nível 2',
+            'Elevated': 'Elevado'
+        })
     colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+    fig_donut = px.pie(df, names = 'Categorias',color_discrete_sequence=colors, hole = 0.3)
+    
 
-    fig_donut.update_traces(marker = dict(colors = colors))
+    #fig_donut.update_traces(marker = dict(colors = colors))
     st.plotly_chart(fig_donut)
 
 escolha = st.selectbox('**Selecione um gráfico para vizualizar**', ['Dispersão', 'Setores', 'Barra'])

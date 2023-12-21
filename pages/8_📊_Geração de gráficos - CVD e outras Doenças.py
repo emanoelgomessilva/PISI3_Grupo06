@@ -36,9 +36,10 @@ def barra_empilhada():
     cols_to_melt = ['Heart_Disease', 'Skin_Cancer', 'Other_Cancer', 'Depression', 'Diabetes', 'Arthritis']
     df_selected = df[cols_to_melt]
 
+    df_selected[['Skin_Cancer', 'Other_Cancer', 'Depression', 'Diabetes', 'Arthritis']] = df_selected[['Skin_Cancer', 'Other_Cancer', 'Depression', 'Diabetes', 'Arthritis']].replace({'Yes': 'Sim', 'No': 'Não'})
     df_selected['Diabetes'] = df_selected['Diabetes'].replace({
-        'Yes, but female told only during pregnancy': 'Yes',
-        'No, pre-diabetes or borderline diabetes': 'No'
+        'Yes, but female told only during pregnancy': 'Sim',
+        'No, pre-diabetes or borderline diabetes': 'Não',
     })
 
     df_melted = df_selected.melt(id_vars=['Heart_Disease'], var_name='outra_doenca', value_name='status')

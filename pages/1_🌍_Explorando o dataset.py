@@ -1,7 +1,7 @@
 import pandas as pd
+import streamlit as st
 from ydata_profiling import ProfileReport
 import streamlit.components.v1 as components
-import streamlit as st
 
 
 st.write('<h1>ANÁLISE EXPLORATÓRIA</h1>'+\

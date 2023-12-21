@@ -15,14 +15,12 @@ def grafico_barra():
 
     stacked_df_cholesterol = df[df['cholesterol'] == df['cholesterol'].unique()[0]].groupby('gluc').size().reset_index(name = 'count')
     for idx, row in stacked_df_cholesterol.iterrows():
-        fig_cholesterol.add_trace(go.Bar(x = [cholesterol_labels[row['gluc']]], y = [row['count']], name = f"Colesterol {cholesterol_labels[row['gluc']]}", text = [row['count']], textposition = 'inside'))
+        fig_cholesterol.add_trace(go.Bar(x = [cholesterol_labels[row['gluc']]], y = [row['count']], name = f"{cholesterol_labels[row['gluc']]}", textposition = 'inside', width=0.6))
 
     stacked_df_gluc = df[df['gluc'] == df['gluc'].unique()[0]].groupby('cholesterol').size().reset_index(name = 'count')
     for idx, row in stacked_df_gluc.iterrows():
-        fig_gluc.add_trace(go.Bar(x = [gluc_labels[row['cholesterol']]], y = [row['count']], name = f"Glicose {gluc_labels[row['cholesterol']]}", text = [row['count']], textposition = 'inside'))
+        fig_gluc.add_trace(go.Bar(x = [gluc_labels[row['cholesterol']]], y = [row['count']], name = f"{gluc_labels[row['cholesterol']]}", textposition = 'inside', width=0.6))
 
-    fig_cholesterol.update_layout(title = 'Níveis de Colesterol')
-    fig_gluc.update_layout(title = 'Níveis de Glicose')
 
     st.plotly_chart(fig_cholesterol)
     st.plotly_chart(fig_gluc)

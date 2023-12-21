@@ -83,6 +83,8 @@ def classification():
         st.write(f"A porcentagem de acerto para o treino foi: <span style='color:red;'>{accuracy_train:.2%}</span>", unsafe_allow_html = True)
         st.write(f"A porcentagem de acerto para o teste foi: <span style='color:red;'>{accuracy_test:.2%}</span>", unsafe_allow_html = True)
 
+        st.write('----')
+
         st.write("**Métricas de Classificação:**")
         st.table(pd.DataFrame(classification_report(y_test, y_test_pred, output_dict=True)).T)
 
