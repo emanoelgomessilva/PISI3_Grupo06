@@ -4,8 +4,9 @@ import streamlit as st
 import plotly.express as px
 from kneed import KneeLocator
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 from sklearn.metrics import silhouette_score
-from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder
 
 df = pd.read_parquet('data/cardio_data_processed.parquet')
 
@@ -106,14 +107,27 @@ def Kmeans():
     df_kmeans = pd.concat([df_kmeans, df_kmeans_encoded], axis=1)
     df_kmeans.drop(['bp_category_encoded'], axis=1, inplace=True)
 
-    scaler = StandardScaler()
-    df_kmeans_standardized = scaler.fit_transform(df_kmeans)
+    normalization_option = st.selectbox('Escolha o tipo de normalização:', ['Sem Normalização', 'Normalização Padrão', 'Normalização MinMax'])
+
+    if normalization_option == 'Sem Normalização':
+        df_kmeans_standardized = df_kmeans.copy()
+    elif normalization_option == 'Normalização Padrão':
+        scaler = StandardScaler()
+        df_kmeans_standardized = scaler.fit_transform(df_kmeans)
+    elif normalization_option == 'Normalização MinMax':
+        scaler = MinMaxScaler()
+        df_kmeans_standardized = scaler.fit_transform(df_kmeans)
+
+    pca = PCA(n_components=2)
+    df_pca = pd.DataFrame(pca.fit_transform(df_kmeans_standardized), columns=['PC1', 'PC2'])
 
     kmeans = KMeans(n_clusters=6, random_state=42)
-    df_kmeans['cluster'] = kmeans.fit_predict(df_kmeans_standardized)
-    df_kmeans['cluster'] = df_kmeans['cluster'].astype(str)
+    df_pca['cluster'] = kmeans.fit_predict(df_kmeans_standardized)
+    df_pca['cluster'] = df_pca['cluster'].astype(str)
 
-    df_kmeans = df_kmeans.rename(columns={
+    df_kmeans_pca = pd.concat([df_kmeans, df_pca], axis=1)
+
+    df_kmeans_pca = df_kmeans_pca.rename(columns={
         'age_years': 'Idade', 'Elevated': 'Elevado', 'Hypertension Stage 1': 'Hipertensão Nível 1',
         'Hypertension Stage 2': 'Hipertensão Nível 2', 
         'cholesterol': 'Colesterol', 'gluc': 'Glicose',
@@ -122,16 +136,16 @@ def Kmeans():
         'cardio': 'Cardio'})
 
     st.write('**Dataframe Codificado**')
-    st.dataframe(df_kmeans)
+    st.dataframe(df_kmeans_pca)
     st.write('')
     st.write('----')
 
     color_scale = ['#0000ff','#800080','#ffd700', '#ff0000', '#008000', '#8B4513']
 
     fig = px.scatter(
-        df_kmeans,
-        x='IMC',
-        y='Idade',
+        df_kmeans_pca,
+        x='PC1',
+        y='PC2',
         color='cluster',
         color_discrete_sequence=color_scale,
         labels={'cluster': 'Cluster'},
