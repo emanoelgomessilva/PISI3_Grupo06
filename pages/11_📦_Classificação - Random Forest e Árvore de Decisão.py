@@ -5,7 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, LabelEncoder
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 st.write('<h1>Classificação</h1>', unsafe_allow_html=True)
@@ -20,20 +20,24 @@ def classification():
     df = pd.read_parquet('data/cvd_cleaned.parquet')
     df = df.drop_duplicates()
 
-    df['Diabetes'] = df['Diabetes'].replace({'Yes, but female told only during pregnancy': 'Yes', 'No, pre-diabetes or borderline diabetes': 'No'})
-    
-    df['Heart_Disease'] = LabelEncoder().fit_transform(df['Heart_Disease'])
-    df['Skin_Cancer'] = LabelEncoder().fit_transform(df['Skin_Cancer'])
-    df['Other_Cancer'] = LabelEncoder().fit_transform(df['Other_Cancer'])
-    df['Depression'] = LabelEncoder().fit_transform(df['Depression'])
-    df['Diabetes'] = LabelEncoder().fit_transform(df['Diabetes'])
-    df['Arthritis'] = LabelEncoder().fit_transform(df['Arthritis'])
+    columns_to_encode = ['Heart_Disease', 'Skin_Cancer', 'Other_Cancer', 'Depression', 'Diabetes', 'Arthritis']
+    df = pd.get_dummies(df, columns=columns_to_encode)
 
     df = df.rename(columns={
-        'Skin_Cancer': 'Câncer de Pele',
-        'Other_Cancer': 'Outros Cânceres',
-        'Depression': 'Depressão',
-        'Arthritis': 'Artrite'})
+        'Skin_Cancer_Yes': 'Câncer de Pele',
+        'Other_Cancer_Yes': 'Outros Cânceres',
+        'Depression_Yes': 'Depressão',
+        'Arthritis_Yes': 'Artrite',
+        'Skin_Cancer_No': 'Sem Câncer de Pele',
+        'Other_Cancer_No': 'Sem Qualquer Cânceres',
+        'Depression_No': 'Sem Depressão',
+        'Arthritis_No': 'Sem Artrite',
+        'Diabetes_Yes': 'Diabetes'})
+    
+    st.write('**Dataframe Codificado**')
+    st.dataframe(df)
+    st.write('')
+    st.write('----')
 
     selectable_features = ['Câncer de Pele', 'Outros Cânceres', 'Depressão', 'Diabetes', 'Artrite']
 
@@ -48,11 +52,11 @@ def classification():
     else:
         algorithm = st.selectbox("Escolha o Algoritmo", ["Random Forest", "Árvore de Decisão", "kNN", "SVM"])
 
-        features_and_target = selected_features + ['Heart_Disease']
+        features_and_target = selected_features + ['Heart_Disease_Yes']
         df_selected = df[features_and_target]
 
-        X = df_selected.drop('Heart_Disease', axis=1)
-        Y = df_selected['Heart_Disease']
+        X = df_selected.drop('Heart_Disease_Yes', axis=1)
+        Y = df_selected['Heart_Disease_Yes']
 
         X_scaled = StandardScaler().fit_transform(X)
 
