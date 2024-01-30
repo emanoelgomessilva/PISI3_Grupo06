@@ -107,6 +107,16 @@ def Kmeans():
     df_kmeans = pd.concat([df_kmeans, df_kmeans_encoded], axis=1)
     df_kmeans.drop(['bp_category_encoded'], axis=1, inplace=True)
 
+    df_gluc_encoded = pd.DataFrame(encoder.fit_transform(df_kmeans[['gluc']]), columns=encoder.get_feature_names_out(['gluc']))
+    df_gluc_encoded.columns = df_gluc_encoded.columns.str.replace('gluc_', 'Glicose Tipo ')
+    df_kmeans = pd.concat([df_kmeans, df_gluc_encoded], axis=1)
+    df_kmeans.drop(['gluc'], axis=1, inplace=True)
+
+    df_cholesterol_encoded = pd.DataFrame(encoder.fit_transform(df_kmeans[['cholesterol']]), columns=encoder.get_feature_names_out(['cholesterol']))
+    df_cholesterol_encoded.columns = df_cholesterol_encoded.columns.str.replace('cholesterol_', 'Colesterol Tipo ')
+    df_kmeans = pd.concat([df_kmeans, df_cholesterol_encoded], axis=1)
+    df_kmeans.drop(['cholesterol'], axis=1, inplace=True)
+
     normalization_option = st.selectbox('Escolha o tipo de normalização:', ['Sem Normalização', 'Normalização Padrão', 'Normalização MinMax'])
 
     if normalization_option == 'Sem Normalização':
@@ -153,6 +163,29 @@ def Kmeans():
     )
 
     st.plotly_chart(fig)
+    st.write('')
+    st.write('----')
+
+    st.write('**Porcentagens de Atributos por Cluster**')
+
+    variaveis = ['Idade', 'Glicose Tipo 1', 'Glicose Tipo 2', 'Glicose Tipo 3', 
+                'Colesterol Tipo 1', 'Colesterol Tipo 2', 'Colesterol Tipo 3', 'Tabagismo',
+                'Consumo de Álcool', 'Atividade Física','Cardio','IMC', 'Elevado',
+                'Hipertensão Nível 1', 'Hipertensão Nível 2', 'Normal']
+
+    df_porcentagens = pd.DataFrame(index=[f'Cluster {i}' for i in range(6)], columns=variaveis)
+
+    for cluster_label in range(6):
+        cluster_data = df_kmeans_pca[df_kmeans_pca['cluster'] == str(cluster_label)]
+        total_registros = len(cluster_data)
+        
+        for variavel in variaveis:
+            porcentagem = (cluster_data[variavel].sum() / total_registros) * 100
+            df_porcentagens.at[f'Cluster {cluster_label}', variavel] = f'{porcentagem:.2f}%'
+
+    st.dataframe(df_porcentagens)
+    st.write('')
+    st.write('----')
 
 
 builder_body()
