@@ -23,13 +23,28 @@ def builder_body():
     Kmeans()
 
 def elbow_method():
-    df_test = df[['age_years', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio', 'bmi', 'bp_category_encoded']]
+    df_test = df[['age_years', 'gender', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio', 'bmi', 'bp_category_encoded']]
 
     encoder = OneHotEncoder(sparse_output=False)
     df_test_encoded = pd.DataFrame(encoder.fit_transform(df_test[['bp_category_encoded']]), columns=encoder.get_feature_names_out(['bp_category_encoded']))
     df_test_encoded.columns = df_test_encoded.columns.str.replace('bp_category_encoded_', '')
     df_test = pd.concat([df_test, df_test_encoded], axis=1)
     df_test.drop(['bp_category_encoded'], axis=1, inplace=True)
+
+    df_gluc_encoded = pd.DataFrame(encoder.fit_transform(df_test[['gluc']]), columns=encoder.get_feature_names_out(['gluc']))
+    df_gluc_encoded.columns = df_gluc_encoded.columns.str.replace('gluc_', 'Glicose Tipo ')
+    df_test = pd.concat([df_test, df_gluc_encoded], axis=1)
+    df_test.drop(['gluc'], axis=1, inplace=True)
+
+    df_cholesterol_encoded = pd.DataFrame(encoder.fit_transform(df_test[['cholesterol']]), columns=encoder.get_feature_names_out(['cholesterol']))
+    df_cholesterol_encoded.columns = df_cholesterol_encoded.columns.str.replace('cholesterol_', 'Colesterol Tipo ')
+    df_test = pd.concat([df_test, df_cholesterol_encoded], axis=1)
+    df_test.drop(['cholesterol'], axis=1, inplace=True)
+
+    df_gender_encoded = pd.DataFrame(encoder.fit_transform(df_test[['gender']]), columns=encoder.get_feature_names_out(['gender']))
+    df_gender_encoded.columns = df_gender_encoded.columns.str.replace('gender_', 'Gênero ')
+    df_test = pd.concat([df_test, df_gender_encoded], axis=1)
+    df_test.drop(['gender'], axis=1, inplace=True)
 
     X = StandardScaler().fit_transform(df_test)
 
@@ -64,13 +79,28 @@ def elbow_method():
     st.write('----')
 
 def calculate_silhouette_score():
-    df_silhouette = df[['age_years', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio', 'bmi', 'bp_category_encoded']]
+    df_silhouette = df[['age_years', 'gender', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio', 'bmi', 'bp_category_encoded']]
 
     encoder = OneHotEncoder(sparse_output=False)
     df_silhouette_encoded = pd.DataFrame(encoder.fit_transform(df_silhouette[['bp_category_encoded']]), columns=encoder.get_feature_names_out(['bp_category_encoded']))
     df_silhouette_encoded.columns = df_silhouette_encoded.columns.str.replace('bp_category_encoded_', '')
     df_silhouette = pd.concat([df_silhouette, df_silhouette_encoded], axis=1)
     df_silhouette.drop(['bp_category_encoded'], axis=1, inplace=True)
+
+    df_gluc_encoded = pd.DataFrame(encoder.fit_transform(df_silhouette[['gluc']]), columns=encoder.get_feature_names_out(['gluc']))
+    df_gluc_encoded.columns = df_gluc_encoded.columns.str.replace('gluc_', 'Glicose Tipo ')
+    df_silhouette = pd.concat([df_silhouette, df_gluc_encoded], axis=1)
+    df_silhouette.drop(['gluc'], axis=1, inplace=True)
+
+    df_cholesterol_encoded = pd.DataFrame(encoder.fit_transform(df_silhouette[['cholesterol']]), columns=encoder.get_feature_names_out(['cholesterol']))
+    df_cholesterol_encoded.columns = df_cholesterol_encoded.columns.str.replace('cholesterol_', 'Colesterol Tipo ')
+    df_silhouette = pd.concat([df_silhouette, df_cholesterol_encoded], axis=1)
+    df_silhouette.drop(['cholesterol'], axis=1, inplace=True)
+
+    df_gender_encoded = pd.DataFrame(encoder.fit_transform(df_silhouette[['gender']]), columns=encoder.get_feature_names_out(['gender']))
+    df_gender_encoded.columns = df_gender_encoded.columns.str.replace('gender_', 'Gênero ')
+    df_silhouette = pd.concat([df_silhouette, df_gender_encoded], axis=1)
+    df_silhouette.drop(['gender'], axis=1, inplace=True)
     
     X = StandardScaler().fit_transform(df_silhouette)
 
@@ -99,7 +129,7 @@ def calculate_silhouette_score():
     st.write(f"Com base no gráfico de silhueta, o número ideal de clusters é: <span style='color:red;'>{ideal_num_clusters}</span>", unsafe_allow_html=True)
 
 def Kmeans():
-    df_kmeans = df[['age_years', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio', 'bmi', 'bp_category_encoded']]
+    df_kmeans = df[['age_years', 'gender', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio', 'bmi', 'bp_category_encoded']]
     
     encoder = OneHotEncoder(sparse_output=False)
     df_kmeans_encoded = pd.DataFrame(encoder.fit_transform(df_kmeans[['bp_category_encoded']]), columns=encoder.get_feature_names_out(['bp_category_encoded']))
@@ -116,6 +146,11 @@ def Kmeans():
     df_cholesterol_encoded.columns = df_cholesterol_encoded.columns.str.replace('cholesterol_', 'Colesterol Tipo ')
     df_kmeans = pd.concat([df_kmeans, df_cholesterol_encoded], axis=1)
     df_kmeans.drop(['cholesterol'], axis=1, inplace=True)
+
+    df_gender_encoded = pd.DataFrame(encoder.fit_transform(df_kmeans[['gender']]), columns=encoder.get_feature_names_out(['gender']))
+    df_gender_encoded.columns = df_gender_encoded.columns.str.replace('gender_', 'Gênero ')
+    df_kmeans = pd.concat([df_kmeans, df_gender_encoded], axis=1)
+    df_kmeans.drop(['gender'], axis=1, inplace=True)
 
     normalization_option = st.selectbox('Escolha o tipo de normalização:', ['Sem Normalização', 'Normalização Padrão', 'Normalização MinMax'])
 
@@ -143,7 +178,7 @@ def Kmeans():
         'cholesterol': 'Colesterol', 'gluc': 'Glicose',
         'alco': 'Consumo de Álcool', 'active': 'Atividade Física', 
         'smoke': 'Tabagismo', 'bmi': 'IMC',
-        'cardio': 'Cardio'})
+        'cardio': 'Cardio', 'Gênero 1': 'Feminino', 'Gênero 2': 'Masculino'})
 
     st.write('**Dataframe Codificado**')
     st.dataframe(df_kmeans_pca)
@@ -168,10 +203,10 @@ def Kmeans():
 
     st.write('**Porcentagens de Atributos por Cluster**')
 
-    variaveis = ['Idade', 'Glicose Tipo 1', 'Glicose Tipo 2', 'Glicose Tipo 3', 
+    variaveis = ['Idade', 'Masculino', 'Feminino', 'Glicose Tipo 1', 'Glicose Tipo 2', 'Glicose Tipo 3', 
                 'Colesterol Tipo 1', 'Colesterol Tipo 2', 'Colesterol Tipo 3', 'Tabagismo',
-                'Consumo de Álcool', 'Atividade Física','Cardio','IMC', 'Elevado',
-                'Hipertensão Nível 1', 'Hipertensão Nível 2', 'Normal']
+                'Consumo de Álcool', 'Atividade Física','Cardio','IMC', 'Normal', 'Elevado',
+                'Hipertensão Nível 1', 'Hipertensão Nível 2']
 
     df_porcentagens = pd.DataFrame(index=[f'Cluster {i}' for i in range(6)], columns=variaveis)
 
