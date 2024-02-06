@@ -2,10 +2,10 @@ import pandas as pd
 import streamlit as st
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder, StandardScaler, LabelEncoder
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 st.write('<h1>Classificação</h1>', unsafe_allow_html=True)
