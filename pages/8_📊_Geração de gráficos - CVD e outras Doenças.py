@@ -53,7 +53,7 @@ def barra_empilhada():
     })
 
     fig_stacked_bar = px.histogram(df_melted, x='outra_doenca', color='status',
-                                    labels={'outra_doenca': 'Outras Doença', 'status': 'Status'},
+                                    labels={'outra_doenca': 'Outras Doenças', 'status': 'Status'},
                                     barmode='stack')
 
     st.plotly_chart(fig_stacked_bar)
