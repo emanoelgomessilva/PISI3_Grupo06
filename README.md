@@ -30,3 +30,14 @@ O projeto se concentra no uso de algoritmos de clusterização e classificação
     <code>streamlit run main.py</code>
   </li>
 </ol>
+
+## Informações Adicionais:
+
+Este projeto possui 3 branches para facilitar a organização:
+<ol>
+  <li>main: entrega final do projeto.</li>
+  <li>development: branch usada para o desenvolvimento contínuo do proejto.</li>
+  <li>marco_1: primeira entrega do projeto.</li>
+  <li>marco_2: segunda entrega do projeto.</li>
+</ol>
+Disponível em: https://pisi3grupo06-djz5rhr2drt59yu5hgfgye.streamlit.app/
