@@ -4,11 +4,21 @@ import plotly.express as px
 
 df = pd.read_parquet('data/cvd_cleaned.parquet')
 
+def codificar_categorico(valor):
+    if valor == 'Yes':
+        return 1
+    elif valor == 'No':
+        return 0
+    elif valor == 'No, pre-diabetes or borderline diabetes':
+        return 0
+    elif valor == 'Yes, but female told only during pregnancy':
+        return 1
+
 def grafico_heatmap():
     st.write('**Gráfico Heatmap**')
     heatmap_colunas = ['Skin_Cancer', 'Other_Cancer', 'Depression', 'Diabetes', 'Arthritis']
 
-    df_heat = df[heatmap_colunas].apply(pd.to_numeric, errors='coerce')
+    df_heat = df[heatmap_colunas].applymap(codificar_categorico)
 
     correlation_matrix = df_heat.corr()
 

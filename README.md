@@ -7,26 +7,25 @@ Este é um trabalho científico voltado à análise de dados, usando dois <i>dat
 O projeto se concentra no uso de algoritmos de clusterização e classificação para entender padrões e prever a presença de doenças cardiovasculares em pacientes.
 
 ## Instalação
-<ol>
-  <li>Instale o VSCode.</li>
 
-  <li>Efetue o clone do projeto:<br>
-    <code>CTRL + SHIFT + P > Git:Clone > Clone from GitHub > https://github.com/emanoelgomessilva/PISI3_Grupo06</code>
-  </li>
+* Instale o VSCode.
+* Efetue o clone do projeto: `CTRL + SHIFT + P > Git:Clone > Clone from GitHub > https://github.com/emanoelgomessilva/PISI3_Grupo06`
+* Instale o python.
+* Acesse a aba "Terminal" disponível na parte inferior do VSCode.
+* Atualize o pip:
+  `python -m pip install --upgrade pip`
+* Instale as libs necessárias para o projeto:
+  `pip install -r requirements.txt --upgrade`
+* Rode o sistema:
+  `streamlit run main.py`
 
-  <li>Instale o python.</li>
-  
-  <li>Acesse a aba "Terminal" disponível na parte inferior do VSCode.</li>
+## Informações Adicionais:
 
-  <li>Atualize o pip:<br>
-    <code>python -m pip install --upgrade pip</code>
-  </li>
+Este projeto possui 3 <i>branches</i> para facilitar a organização:
 
-  <li>Instale as libs necessárias para o projeto:<br>
-    <code>pip install -r requirements.txt --upgrade</code>
-  </li>
+* main: entrega final do projeto.
+* development: branch usada para o desenvolvimento contínuo do proejto.
+* marco_1: primeira entrega do projeto.
+* marco_2: segunda entrega do projeto.
 
-  <li>Rode o sistema:<br>
-    <code>streamlit run main.py</code>
-  </li>
-</ol>
+Disponível em: https://pisi3grupo06-djz5rhr2drt59yu5hgfgye.streamlit.app/
