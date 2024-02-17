@@ -24,7 +24,7 @@ O projeto se concentra no uso de algoritmos de clusterização e classificação
 Este projeto possui 3 <i>branches</i> para facilitar a organização:
 
 * main: entrega final do projeto.
-* development: branch usada para o desenvolvimento contínuo do proejto.
+* development: branch usada para o desenvolvimento contínuo do projeto.
 * marco_1: primeira entrega do projeto.
 * marco_2: segunda entrega do projeto.
 
