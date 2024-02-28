@@ -40,6 +40,8 @@ def grafico_heatmap():
     fig = px.imshow(correlation_matrix, labels = dict(x = "Variáveis", y = "Variáveis"), x = correlation_matrix.index, y = correlation_matrix.columns)
     st.plotly_chart(fig, use_container_width=True)
 
+st.write('''Dados relativos ao Dataset: [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/colewelkins/cardiovascular-disease?select=cardio_data_processed.csv)''', unsafe_allow_html=True)
+
 escolha = st.selectbox('**Selecione um gráfico para vizualizar**', ['Bubble', 'Boxplot', 'Heatmap'])
 
 if escolha == 'Bubble':

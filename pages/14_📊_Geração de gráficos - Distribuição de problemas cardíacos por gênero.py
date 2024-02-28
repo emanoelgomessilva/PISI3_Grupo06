@@ -6,12 +6,14 @@ import matplotlib.pyplot as plt
 value = 1
 df = pd.read_parquet('data/cardio_data_processed.parquet').query('cardio == @value')
 
-st.write('''Relação comparativa entre a população fumante e não fumante que possui algum problema cardíaco nos dados utilizados''', unsafe_allow_html=True)
+st.write('''Dados relativos ao Dataset: [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/colewelkins/cardiovascular-disease?select=cardio_data_processed.csv)''', unsafe_allow_html=True)
+
+st.write('''Relação entre o sexo masculino e feminino que possui algum problema cardíaco nos dados utilizados''', unsafe_allow_html=True)
 
 def grafico_barra():
     
     # Contar as ocorrências dos valores na coluna
-    contagem = df['alco'].value_counts()
+    contagem = df['gender'].value_counts()
 
     # Plotar o gráfico de barras
     plt.bar(contagem.index, contagem.values)
@@ -21,7 +23,7 @@ def grafico_barra():
     plt.xticks(rotation=45)  # Rotaciona os labels do eixo x para facilitar a leitura
     plt.show()
 
-    contagem.index = ['Não consome bebida alcoólica', 'Consome bebida alcoólica']
+    contagem.index = ['Masculino', 'Feminino']
 
     # Exibir o gráfico de barras no Streamlit
     st.bar_chart(contagem)

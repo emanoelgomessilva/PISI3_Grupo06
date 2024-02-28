@@ -39,6 +39,8 @@ def grafico_pizza():
 
 escolha = st.selectbox('**Selecione um gráfico para vizualizar**', ['Barra', 'Pizza'])
 
+st.write('''Dados relativos ao Dataset: [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/colewelkins/cardiovascular-disease?select=cardio_data_processed.csv)''', unsafe_allow_html=True)
+
 if escolha == 'Barra':
     st.write('')
     grafico_barra()
