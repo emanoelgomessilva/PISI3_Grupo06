@@ -58,4 +58,6 @@ def barra_empilhada():
 
     st.plotly_chart(fig_stacked_bar)
 
+st.write('''Dados relativos ao Dataset: [Cardiovascular Diseases Risk Prediction Dataset](https://www.kaggle.com/datasets/alphiree/cardiovascular-diseases-risk-prediction-dataset/data)''', unsafe_allow_html=True)
+
 barra_empilhada()

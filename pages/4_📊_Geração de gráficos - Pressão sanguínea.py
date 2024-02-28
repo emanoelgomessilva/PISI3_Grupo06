@@ -45,6 +45,8 @@ def grafico_setor():
     #fig_donut.update_traces(marker = dict(colors = colors))
     st.plotly_chart(fig_donut)
 
+st.write('''Dados relativos ao Dataset: [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/colewelkins/cardiovascular-disease?select=cardio_data_processed.csv)''', unsafe_allow_html=True)
+
 escolha = st.selectbox('**Selecione um gráfico para vizualizar**', ['Dispersão', 'Setores', 'Barra'])
 
 if escolha == 'Dispersão':

@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 value = 1
 df = pd.read_parquet('data/cardio_data_processed.parquet').query('cardio == @value')
 
+st.write('''Dados relativos ao Dataset: [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/colewelkins/cardiovascular-disease?select=cardio_data_processed.csv)''', unsafe_allow_html=True)
+
 st.write('''Relação comparativa entre a população fumante e não fumante que possui algum problema cardíaco nos dados utilizados''', unsafe_allow_html=True)
 
 def grafico_barra():
