@@ -18,3 +18,10 @@ def grafico_pizza():
         st.plotly_chart(fig_pie)
 
 grafico_pizza()
+
+skin_cancer_count = df[df['Skin_Cancer'] == 'Yes']
+other_cancer_count = df[df['Other_Cancer'] == 'Yes']
+
+st.write('**Dados quantitativos com relação à indivíduos com algum tipo de câncer e algum problema cardíaco:**')
+st.write(f"Quantitativo de indivíduos que possuem câncer de pele e algum problema cardíaco é de:  <span style='color:red;'>{len(skin_cancer_count)}</span>", unsafe_allow_html=True)
+st.write(f"Quantitativo de indivíduos que possuem outros tipos de câncer e algum problema cardíaco é de:  <span style='color:red;'>{len(skin_cancer_count)}</span>", unsafe_allow_html=True)
