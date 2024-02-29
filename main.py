@@ -23,7 +23,6 @@ Este é um trabalho científico voltado à análise de dados, usando dois <i>dat
 O projeto se concentra no uso de algoritmos de clusterização e classificação para entender padrões e prever a presença de doenças cardiovasculares em pacientes.            
 
 **Membros do Projeto:**
-- `Arthur de Barros` (arthur.bbsantos@ufrpe.br)
 - `Emanoel Gomes` (emanoel20092009@gmail.com)
 - `Fellipe Domingues` (pipo200115@gmail.com)
 - `Lucas Daniel` (lucas.dan.melo@gmail.com)
