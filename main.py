@@ -25,7 +25,6 @@ O projeto se concentra no uso de algoritmos de clusterização e classificação
 
 **Membros do Projeto:**
             
-- `Arthur de Barros` (arthur.bbsantos@ufrpe.br)
 - `Emanoel Gomes` (emanoel20092009@gmail.com)
 - `Fellipe Domingues` (pipo200115@gmail.com)
 - `Lucas Daniel` (lucas.dan.melo@gmail.com)

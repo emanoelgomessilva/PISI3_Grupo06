@@ -19,4 +19,6 @@ def grafico_pizza():
         fig_pie = px.pie(df, names ='alco')
         st.plotly_chart(fig_pie)
 
+st.write('''Dados relativos ao Dataset: [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/colewelkins/cardiovascular-disease?select=cardio_data_processed.csv)''', unsafe_allow_html=True)
+
 grafico_pizza()

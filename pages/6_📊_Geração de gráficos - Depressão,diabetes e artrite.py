@@ -25,4 +25,6 @@ def grafico_heatmap():
     fig = px.imshow(correlation_matrix, labels=dict(x="Variáveis", y="Variáveis"), x=correlation_matrix.index, y=correlation_matrix.columns)
     st.plotly_chart(fig, use_container_width=True)
 
+st.write('''Dados relativos ao Dataset: [Cardiovascular Diseases Risk Prediction Dataset](https://www.kaggle.com/datasets/alphiree/cardiovascular-diseases-risk-prediction-dataset/data)''', unsafe_allow_html=True)
+
 grafico_heatmap()
