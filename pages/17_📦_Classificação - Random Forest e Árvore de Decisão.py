@@ -39,7 +39,7 @@ def classification():
     st.write('')
     st.write('----')
 
-    selectable_features = ['Câncer de Pele', 'Outros Cânceres', 'Depressão', 'Diabetes', 'Artrite']
+    selectable_features = ['Câncer de Pele', 'Outros Cânceres', 'Depressão', 'Diabetes', 'Artrite', 'Sem Câncer de Pele', 'Sem Qualquer Cânceres','Sem Depressão', 'Sem Artrite']
 
     selected_features = st.multiselect(
         "Características",
