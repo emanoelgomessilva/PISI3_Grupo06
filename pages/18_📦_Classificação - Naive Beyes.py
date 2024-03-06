@@ -1,9 +1,10 @@
 import pandas as pd
 import streamlit as st
-from sklearn.naive_bayes import GaussianNB  
+from sklearn.naive_bayes import GaussianNB 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from sklearn.preprocessing import StandardScaler
+from imblearn.over_sampling import SMOTE
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -41,7 +42,7 @@ def classification():
     if len(selected_features) < 2:
         st.error("Selecione pelo menos duas características.")
     else:
-        algorithm = "Naive Bayes"  
+        algorithm = "Naive Bayes" 
 
         features_and_target = selected_features + ['Heart_Disease_Yes']
         df_selected = df[features_and_target]
@@ -51,9 +52,13 @@ def classification():
 
         X_scaled = StandardScaler().fit_transform(X)
 
+        
+        smote = SMOTE(random_state=42)
+        X_resampled, Y_resampled = smote.fit_resample(X_scaled, Y)
+
         X_train, X_test, y_train, y_test = train_test_split(
-            X_scaled,
-            Y,
+            X_resampled,
+            Y_resampled,
             test_size=0.2,
             random_state=42
         )
@@ -93,6 +98,5 @@ def classification():
         plt.ylabel('Real')
         plt.title('Matriz de Confusão')
         st.pyplot(plt)
-
 
 classification()
