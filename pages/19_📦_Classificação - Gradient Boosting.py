@@ -55,7 +55,7 @@ smote = SMOTE(random_state=42)
 X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 
 def train_and_evaluate_model(model):
-    model.fit(X_train, y_train)
+    model.fit(X_train_resampled, y_train_resampled)
     y_pred = model.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     precision = precision_score(y_test, y_pred, average='weighted')
