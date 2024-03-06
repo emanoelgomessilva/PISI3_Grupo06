@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 from sklearn.svm import SVC
 import plotly.figure_factory as ff
+from imblearn.over_sampling import SMOTE
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
@@ -69,6 +70,9 @@ def classification():
             random_state=42
         )
 
+        smote = SMOTE(random_state=42)
+        X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+
         if algorithm == "Random Forest":
             model = RandomForestClassifier(random_state=42)
         elif algorithm == "Árvore de Decisão":
@@ -80,12 +84,12 @@ def classification():
         elif algorithm == "Regressão Logística":
             model = LogisticRegression(random_state=42)
 
-        model.fit(X_train, y_train)
+        model.fit(X_train_resampled, y_train_resampled)
 
-        y_train_pred = model.predict(X_train)
+        y_train_pred = model.predict(X_train_resampled)
         y_test_pred = model.predict(X_test)
 
-        accuracy_train = accuracy_score(y_train, y_train_pred)
+        accuracy_train = accuracy_score(y_train_resampled, y_train_pred)
         accuracy_test = accuracy_score(y_test, y_test_pred)
 
         st.write(f"A porcentagem de acerto para o treino foi: <span style='color:red;'>{accuracy_train:.2%}</span>", unsafe_allow_html = True)
@@ -117,7 +121,7 @@ def classification():
             z=conf_matrix,
             x=['Previsto Negativo', 'Previsto Positivo'],
             y=['Real Negativo', 'Real Positivo'],
-            colorscale='Cividis',
+            colorscale='Blues',
             showscale=False
         )
 
