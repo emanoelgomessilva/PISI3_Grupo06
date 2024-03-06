@@ -67,7 +67,7 @@ def train_and_evaluate_model(model):
 models = {
     'Gradient Boosting' :GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=42),
     'Random Forest': RandomForestClassifier(random_state=42),
-    'SVM': SVC(random_state=42),
+    #'SVM': SVC(random_state=42),
     'KNN': KNeighborsClassifier(),
     'Árvore de Decisão': DecisionTreeClassifier(random_state=42)   
 }
