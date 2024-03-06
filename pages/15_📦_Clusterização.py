@@ -1,11 +1,13 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
+import matplotlib.cm as cm
 import plotly.express as px
 from kneed import KneeLocator
+import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
-from sklearn.metrics import silhouette_score
+from sklearn.metrics import silhouette_score, silhouette_samples
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder
 
 df = pd.read_parquet('data/cardio_data_processed.parquet')
@@ -21,6 +23,54 @@ def builder_body():
     elbow_method()
     #calculate_silhouette_score()
     Kmeans()
+
+def plot_silhouette_analysis(X, range_n_clusters):
+    for n_clusters in range_n_clusters:
+        
+        fig, (ax1, ax2) = plt.subplots(1, 2)
+        fig.set_size_inches(18, 7)
+
+        ax1.set_xlim([-0.1, 1])
+        ax1.set_ylim([0, len(X) + (n_clusters + 1) * 10])
+
+        clusterer = KMeans(n_clusters=n_clusters, random_state=42)
+        cluster_labels = clusterer.fit_predict(X)
+
+        silhouette_avg = silhouette_score(X, cluster_labels)
+        print(f"For n_clusters = {n_clusters}, The average silhouette_score is : {silhouette_avg}")
+
+        sample_silhouette_values = silhouette_samples(X, cluster_labels)
+
+        y_lower = 10
+        for i in range(n_clusters):
+            ith_cluster_silhouette_values = sample_silhouette_values[cluster_labels == i]
+
+            ith_cluster_silhouette_values.sort()
+
+            size_cluster_i = ith_cluster_silhouette_values.shape[0]
+            y_upper = y_lower + size_cluster_i
+
+            color = cm.nipy_spectral(float(i) / n_clusters)
+            ax1.fill_betweenx(
+                np.arange(y_lower, y_upper),
+                0,
+                ith_cluster_silhouette_values,
+                facecolor=color,
+                edgecolor=color,
+                alpha=0.7,
+            )
+
+            ax1.text(-0.05, y_lower + 0.5 * size_cluster_i, str(i))
+            y_lower = y_upper + 10
+
+        ax1.set_title("O gráfico de silhueta para os vários clusters.")
+        ax1.set_xlabel("Os valores do coeficiente de silhueta")
+        ax1.set_ylabel("Rótulo do cluster")
+        ax1.axvline(x=silhouette_avg, color="red", linestyle="--")
+        ax1.set_yticks([])
+        ax1.set_xticks([-0.1, 0, 0.2, 0.4, 0.6, 0.8, 1])
+
+        st.pyplot(fig)
 
 def elbow_method():
     df_test = df[['age_years', 'gender', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio', 'bmi', 'bp_category_encoded']]
@@ -77,6 +127,11 @@ def elbow_method():
              unsafe_allow_html=True)
 
     st.write('----')
+
+    st.write('**Cotovelo pelo Matplolib**')
+
+    range_n_clusters = range(2, 11)
+    plot_silhouette_analysis(X, range_n_clusters)
 
 def calculate_silhouette_score():
     df_silhouette = df[['age_years', 'gender', 'cholesterol', 'gluc', 'smoke', 'alco', 'active', 'cardio', 'bmi', 'bp_category_encoded']]
@@ -194,7 +249,6 @@ def Kmeans():
         color='cluster',
         color_discrete_sequence=color_scale,
         labels={'cluster': 'Cluster'},
-        title='Clusters Gerados pelo K-Means',
     )
 
     st.plotly_chart(fig)
@@ -203,9 +257,9 @@ def Kmeans():
 
     st.write('**Porcentagens de Atributos por Cluster**')
 
-    variaveis = ['Idade', 'Masculino', 'Feminino', 'Glicose Tipo 1', 'Glicose Tipo 2', 'Glicose Tipo 3', 
+    variaveis = ['Masculino', 'Feminino', 'Glicose Tipo 1', 'Glicose Tipo 2', 'Glicose Tipo 3', 
                 'Colesterol Tipo 1', 'Colesterol Tipo 2', 'Colesterol Tipo 3', 'Tabagismo',
-                'Consumo de Álcool', 'Atividade Física','Cardio','IMC', 'Normal', 'Elevado',
+                'Consumo de Álcool', 'Atividade Física','Cardio', 'Normal', 'Elevado',
                 'Hipertensão Nível 1', 'Hipertensão Nível 2']
 
     df_porcentagens = pd.DataFrame(index=[f'Cluster {i}' for i in range(6)], columns=variaveis)
@@ -222,5 +276,44 @@ def Kmeans():
     st.write('')
     st.write('----')
 
+    fig_boxplot = px.box(
+        df_kmeans_pca,
+        x='cluster',
+        y='Idade',
+        color='cluster',
+        color_discrete_sequence=px.colors.qualitative.Set1,
+        labels={'cluster': 'Cluster', 'Idade': 'Idade'},
+    )
+
+    fig_boxplot.update_layout(
+        xaxis_title='Cluster',
+        yaxis_title='Idade',
+    )
+
+    st.plotly_chart(fig_boxplot)
+    st.write('')
+    st.write('----')
+
+    
+    df_kmeans_pca['IMC_Class'] = pd.cut(df_kmeans_pca['IMC'], bins=[0, 18.5, 25, 30, 35, 40, float('inf')],
+                                        labels=['Baixo Peso (<18.5)', 'Peso Ideal (≥18.5 até 24.9)', 'Sobrepeso (≥25 até 29.9)', 'Obesidade Grau 1 (≥30 até 34.9)', 'Obesidade Grau 2 (≥35 até 39.9)', 'Obesidade Extrema (>40)'])
+
+    fig_imc = px.histogram(
+        df_kmeans_pca,
+        x='cluster',
+        color='IMC_Class',
+        color_discrete_sequence=px.colors.qualitative.Set1,
+        labels={'cluster': 'Cluster', 'IMC_Class': 'Classe de IMC'},
+        barmode='stack'
+    )
+
+    fig_imc.update_layout(
+        xaxis_title='Cluster',
+        yaxis_title='Quantidade de Pacientes',
+    )
+
+    st.plotly_chart(fig_imc)
+    st.write('')
+    st.write('----')
 
 builder_body()
