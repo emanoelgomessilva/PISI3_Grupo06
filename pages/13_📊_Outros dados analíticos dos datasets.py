@@ -104,6 +104,26 @@ chart = alt.Chart(df_1).mark_bar().encode(
 
 st.altair_chart(chart, use_container_width=True)
 
+st.write(f"Distribuição de pessoas por gênero e nível de colesterol", unsafe_allow_html=True)
+
+df_1['cholesterol'] = df_1['cholesterol'].replace({
+    1: 'Normal',
+    2: 'Acima do normal',
+    3: 'Muito acima do normal'
+})
+
+chart = alt.Chart(df_1).mark_bar().encode(
+    x='gender:N',
+    y='count():Q',
+    color='gender:N',
+    column='cholesterol:O'
+).properties(
+    width=300,
+    height=200
+)
+
+st.altair_chart(chart, use_container_width=True)
+
 st.write('''Dados relativos ao Dataset: [Cardiovascular Diseases Risk Prediction Dataset](https://www.kaggle.com/datasets/alphiree/cardiovascular-diseases-risk-prediction-dataset/data)''', unsafe_allow_html=True)
 
 st.write(f"Quantitativo de indivíduos que bebem, fumam, são sedentários e possuem algum problema cardíaco", unsafe_allow_html=True)

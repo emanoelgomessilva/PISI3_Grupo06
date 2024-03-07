@@ -10,6 +10,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from imblearn.over_sampling import SMOTE
 import plotly.figure_factory as ff
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 
@@ -57,57 +58,36 @@ X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 
 def train_and_evaluate_model(model):
     model.fit(X_train_resampled, y_train_resampled)
-    y_pred = model.predict(X_test)
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred, average='weighted')
-    recall = recall_score(y_test, y_pred, average='weighted')
-    f1 = f1_score(y_test, y_pred, average='weighted')
-    conf_matrix = confusion_matrix(y_test, y_pred)
-    return accuracy, precision, recall, f1, conf_matrix
 
-models = {
-    'Gradient Boosting' :GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=42),
-    'Random Forest': RandomForestClassifier(random_state=42),
-    #'SVM': SVC(random_state=42),
-    'KNN': KNeighborsClassifier(),
-    'Árvore de Decisão': DecisionTreeClassifier(random_state=42)   
-}
+    y_train_pred = model.predict(X_train_resampled)
+    y_test_pred = model.predict(X_test)
 
-results_list = []
-confusion_matrix_list = []
+    accuracy_train = accuracy_score(y_train_resampled, y_train_pred)
+    accuracy_test = accuracy_score(y_test, y_test_pred)
 
-for model_name, model in models.items():
-    accuracy, precision, recall, f1, conf_matrix = train_and_evaluate_model(model)
-    results_list.append({
-        'Modelo': model_name,
-        'Accuracy': accuracy,
-        'Precision': precision,
-        'Recall': recall,
-        'F1 Score': f1
-    })
+    st.write(f"A porcentagem de acerto para o treino foi: <span style='color:red;'>{accuracy_train:.2%}</span>", unsafe_allow_html = True)
+    st.write(f"A porcentagem de acerto para o teste foi: <span style='color:red;'>{accuracy_test:.2%}</span>", unsafe_allow_html = True)
 
-for model_name, model in models.items():
-    accuracy, precision, recall, f1, conf_matrix = train_and_evaluate_model(model)
-    confusion_matrix_list.append({
-        'Modelo': model_name,
-        'Confusion Matrix': conf_matrix
-    })
+    st.write('----')
 
-results = pd.DataFrame(results_list)
-confusion_matrix_df = pd.DataFrame(confusion_matrix_list)
+    st.write("**Métricas de Classificação:**")
+    st.table(pd.DataFrame(classification_report(y_test, y_test_pred, output_dict=True)).T)
 
-st.write("## Resultados de treinamento do Gradient Boosting e dos algoritmos utilizados anteriormente")
-st.write(results)
+    st.write('----')
 
-for model_name, model in models.items():
-    accuracy, precision, recall, f1, conf_matrix = train_and_evaluate_model(model)
+    conf_matrix = confusion_matrix(y_test, y_test_pred)
+
     conf_matrix_df = pd.DataFrame(
         conf_matrix,
         index=['Real Negativo', 'Real Positivo'],
         columns=['Previsto Negativo', 'Previsto Positivo']
     )
 
-    st.write(f"**Matriz de Confusão: {model_name}**")
+    st.write("**Matriz de Confusão**")
+    st.write('''É uma tabela que resume o desempenho de um modelo de classificação, destacando 
+                 Verdadeiros Positivos (VP), Falsos Positivos (FP), Falsos Negativos (FN) e Verdadeiros Negativos (VN). 
+                 Essa tabela fornece uma visão detalhada dos acertos e erros do modelo, sendo importante 
+                 para avaliar sua eficácia e identificar áreas de melhoria.''')
     st.table(conf_matrix_df)
 
     fig_conf_matrix = ff.create_annotated_heatmap(
@@ -126,5 +106,19 @@ for model_name, model in models.items():
 
     st.plotly_chart(fig_conf_matrix)
 
-
     st.write('----')
+
+models = {
+    'Gradient Boosting' :GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=42),
+    'Random Forest': RandomForestClassifier(random_state=42),
+    #'SVM': SVC(random_state=42),
+    'KNN': KNeighborsClassifier(),
+    'Árvore de Decisão': DecisionTreeClassifier(random_state=42)   
+}
+
+results_list = []
+confusion_matrix_list = []
+
+for model_name, model in models.items():
+    st.write(f"Métricas do algoritmo: {model_name}", unsafe_allow_html=True)
+    train_and_evaluate_model(model)
