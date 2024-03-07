@@ -9,6 +9,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from imblearn.over_sampling import SMOTE
+import plotly.figure_factory as ff
 
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 
@@ -34,7 +35,7 @@ st.dataframe(df)
 st.write('')
 st.write('----')
 
-selected_features = ['Depressão', 'Diabetes', 'Câncer de Pele', 'Outros Cânceres', 'Artrite', 'Sem Câncer de Pele', 'Sem Qualquer Cânceres','Sem Depressão', 'Sem Artrite']
+selected_features = ['Depressão', 'Diabetes', 'Câncer de Pele', 'Outros Cânceres']
 
 features_and_target = selected_features + ['Heart_Disease_Yes']
 df_selected = df[features_and_target]
@@ -108,5 +109,22 @@ for model_name, model in models.items():
 
     st.write(f"**Matriz de Confusão: {model_name}**")
     st.table(conf_matrix_df)
+
+    fig_conf_matrix = ff.create_annotated_heatmap(
+        z=conf_matrix,
+        x=['Previsto Negativo', 'Previsto Positivo'],
+        y=['Real Negativo', 'Real Positivo'],
+        colorscale='Blues',
+        showscale=False
+    )
+
+    fig_conf_matrix.update_layout(
+        title='Matriz de Confusão',
+        xaxis_title='Previsto',
+        yaxis_title='Real'
+    )
+
+    st.plotly_chart(fig_conf_matrix)
+
 
     st.write('----')

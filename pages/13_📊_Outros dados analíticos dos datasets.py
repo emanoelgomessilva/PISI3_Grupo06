@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
 import matplotlib.pyplot as plt
+import altair as alt
 
 df_1 = pd.read_parquet('data/cardio_data_processed.parquet')
 df_2 = pd.read_parquet('data/cvd_cleaned.parquet')
@@ -45,7 +46,7 @@ plt.bar(no_smoke_no_alco_exercise_count.index, no_smoke_no_alco_exercise_count.v
 plt.xlabel('Valores')
 plt.ylabel('Quantidade de Ocorrências')
 plt.title('Ocorrências de Valores na Coluna')
-plt.xticks(rotation=45)  # Rotaciona os labels do eixo x para facilitar a leitura
+plt.xticks(rotation=45)
 plt.show()
 
 no_smoke_no_alco_exercise_count.index = ['Não cardíacos', 'Cardíacos']
@@ -58,7 +59,7 @@ plt.bar(cholesterol_3_gluc_3_count.index, cholesterol_3_gluc_3_count.values)
 plt.xlabel('Valores')
 plt.ylabel('Quantidade de Ocorrências')
 plt.title('Ocorrências de Valores na Coluna')
-plt.xticks(rotation=45)  # Rotaciona os labels do eixo x para facilitar a leitura
+plt.xticks(rotation=45)
 plt.show()
 
 cholesterol_3_gluc_3_count.index = ['Não cardíacos', 'Cardíacos']
@@ -71,12 +72,37 @@ plt.bar(cholesterol_1_gluc_1_count.index, cholesterol_1_gluc_1_count.values)
 plt.xlabel('Valores')
 plt.ylabel('Quantidade de Ocorrências')
 plt.title('Ocorrências de Valores na Coluna')
-plt.xticks(rotation=45)  # Rotaciona os labels do eixo x para facilitar a leitura
+plt.xticks(rotation=45)
 plt.show()
 
 cholesterol_1_gluc_1_count.index = ['Não cardíacos', 'Cardíacos']
 
 st.bar_chart(cholesterol_1_gluc_1_count)
+
+st.write(f"Distribuição de pessoas por gênero e nível de glicose", unsafe_allow_html=True)
+
+df_1['gender'] = df_1['gender'].replace({
+    1: 'Masculino',
+    2: 'Feminino'
+})
+
+df_1['gluc'] = df_1['gluc'].replace({
+    1: 'Normal',
+    2: 'Acima do normal',
+    3: 'Muito acima do normal'
+})
+
+chart = alt.Chart(df_1).mark_bar().encode(
+    x='gender:N',
+    y='count():Q',
+    color='gender:N',
+    column='gluc:O'
+).properties(
+    width=300,
+    height=200
+)
+
+st.altair_chart(chart, use_container_width=True)
 
 st.write('''Dados relativos ao Dataset: [Cardiovascular Diseases Risk Prediction Dataset](https://www.kaggle.com/datasets/alphiree/cardiovascular-diseases-risk-prediction-dataset/data)''', unsafe_allow_html=True)
 
@@ -86,7 +112,7 @@ plt.bar(smoking_alcohol_no_exercise_count.index, smoking_alcohol_no_exercise_cou
 plt.xlabel('Valores')
 plt.ylabel('Quantidade de Ocorrências')
 plt.title('Ocorrências de Valores na Coluna')
-plt.xticks(rotation=45)  # Rotaciona os labels do eixo x para facilitar a leitura
+plt.xticks(rotation=45)
 plt.show()
 
 smoking_alcohol_no_exercise_count.index = ['Não cardíacos', 'Cardíacos']
@@ -99,7 +125,7 @@ plt.bar(no_smoking_no_alcohol_exercise_count.index, no_smoking_no_alcohol_exerci
 plt.xlabel('Valores')
 plt.ylabel('Quantidade de Ocorrências')
 plt.title('Ocorrências de Valores na Coluna')
-plt.xticks(rotation=45)  # Rotaciona os labels do eixo x para facilitar a leitura
+plt.xticks(rotation=45)
 plt.show()
 
 no_smoking_no_alcohol_exercise_count.index = ['Não cardíacos', 'Cardíacos']
@@ -112,7 +138,7 @@ plt.bar(no_smoking_no_alcohol_exercise_vegetables_count.index, no_smoking_no_alc
 plt.xlabel('Valores')
 plt.ylabel('Quantidade de Ocorrências')
 plt.title('Ocorrências de Valores na Coluna')
-plt.xticks(rotation=45)  # Rotaciona os labels do eixo x para facilitar a leitura
+plt.xticks(rotation=45)
 plt.show()
 
 no_smoking_no_alcohol_exercise_vegetables_count.index = ['Não cardíacos', 'Cardíacos']
