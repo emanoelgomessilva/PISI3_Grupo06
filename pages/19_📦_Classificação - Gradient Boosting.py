@@ -84,10 +84,6 @@ def train_and_evaluate_model(model):
     )
 
     st.write("**Matriz de Confusão**")
-    st.write('''É uma tabela que resume o desempenho de um modelo de classificação, destacando 
-                 Verdadeiros Positivos (VP), Falsos Positivos (FP), Falsos Negativos (FN) e Verdadeiros Negativos (VN). 
-                 Essa tabela fornece uma visão detalhada dos acertos e erros do modelo, sendo importante 
-                 para avaliar sua eficácia e identificar áreas de melhoria.''')
     st.table(conf_matrix_df)
 
     fig_conf_matrix = ff.create_annotated_heatmap(
