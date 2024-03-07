@@ -4,8 +4,6 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import altair as alt
 
-alt.renderers.enable('mimetype')
-
 df_1 = pd.read_parquet('data/cardio_data_processed.parquet')
 df_2 = pd.read_parquet('data/cvd_cleaned.parquet')
 
