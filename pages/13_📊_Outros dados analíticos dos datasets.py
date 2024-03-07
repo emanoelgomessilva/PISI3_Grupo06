@@ -4,6 +4,8 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import altair as alt
 
+alt.renderers.enable('mimetype')
+
 df_1 = pd.read_parquet('data/cardio_data_processed.parquet')
 df_2 = pd.read_parquet('data/cvd_cleaned.parquet')
 
@@ -81,6 +83,7 @@ st.bar_chart(cholesterol_1_gluc_1_count)
 
 st.write(f"Distribuição de pessoas por gênero e nível de glicose", unsafe_allow_html=True)
 
+
 df_1['gender'] = df_1['gender'].replace({
     1: 'Masculino',
     2: 'Feminino'
@@ -92,17 +95,17 @@ df_1['gluc'] = df_1['gluc'].replace({
     3: 'Muito acima do normal'
 })
 
-chart = alt.Chart(df_1).mark_bar().encode(
+chart = alt.Chart(df_1, width=alt.Step(20)).mark_bar(size = 50).encode(
     x='gender:N',
     y='count():Q',
     color='gender:N',
     column='gluc:O'
 ).properties(
-    width=300,
+    width=100,
     height=200
 )
 
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(chart, use_container_width=False)
 
 st.write(f"Distribuição de pessoas por gênero e nível de colesterol", unsafe_allow_html=True)
 
@@ -112,17 +115,17 @@ df_1['cholesterol'] = df_1['cholesterol'].replace({
     3: 'Muito acima do normal'
 })
 
-chart = alt.Chart(df_1).mark_bar().encode(
+chart = alt.Chart(df_1, width=alt.Step(20)).mark_bar(size = 50).encode(
     x='gender:N',
     y='count():Q',
     color='gender:N',
     column='cholesterol:O'
 ).properties(
-    width=300,
-    height=200
+    width=100,
+    height=100
 )
 
-st.altair_chart(chart, use_container_width=True)
+st.altair_chart(chart, use_container_width=False)
 
 st.write('''Dados relativos ao Dataset: [Cardiovascular Diseases Risk Prediction Dataset](https://www.kaggle.com/datasets/alphiree/cardiovascular-diseases-risk-prediction-dataset/data)''', unsafe_allow_html=True)
 
@@ -139,7 +142,7 @@ smoking_alcohol_no_exercise_count.index = ['Não cardíacos', 'Cardíacos']
 
 st.bar_chart(smoking_alcohol_no_exercise_count)
 
-st.write(f"Quantitativo de indivíduos que não bebem, não fumam, praticam alguma atividade física e possuem algum problema cardíaco é de:  <span style='color:red;'>{len(no_smoking_no_alcohol_exercise_count)}</span>", unsafe_allow_html=True)
+st.write(f"Quantitativo de indivíduos que não bebem, não fumam, praticam alguma atividade física e possuem algum problema cardíaco", unsafe_allow_html=True)
 
 plt.bar(no_smoking_no_alcohol_exercise_count.index, no_smoking_no_alcohol_exercise_count.values)
 plt.xlabel('Valores')
@@ -152,7 +155,7 @@ no_smoking_no_alcohol_exercise_count.index = ['Não cardíacos', 'Cardíacos']
 
 st.bar_chart(no_smoking_no_alcohol_exercise_count)
 
-st.write(f"Quantitativo de indivíduos que não bebem, não fumam, praticam alguma atividade física, tem inclusos frutas e vegetais em sua alimentação e possuem algum problema cardíaco é de:  <span style='color:red;'>{len(no_smoking_no_alcohol_exercise_count)}</span>", unsafe_allow_html=True)
+st.write(f"Quantitativo de indivíduos que não bebem, não fumam, praticam alguma atividade física, tem inclusos frutas e vegetais em sua alimentação e possuem algum problema cardíaco", unsafe_allow_html=True)
 
 plt.bar(no_smoking_no_alcohol_exercise_vegetables_count.index, no_smoking_no_alcohol_exercise_vegetables_count.values)
 plt.xlabel('Valores')
@@ -165,3 +168,16 @@ no_smoking_no_alcohol_exercise_vegetables_count.index = ['Não cardíacos', 'Car
 
 st.bar_chart(no_smoking_no_alcohol_exercise_vegetables_count)
 
+st.write(f"Distribuição entre IMC e Idade", unsafe_allow_html=True)
+
+chart2 = alt.Chart(df_1).mark_circle().encode(
+    x='bmi',
+    y='age_years',
+    color='cardio',
+    tooltip=['bmi', 'age_years']
+).properties(
+    width=400,
+    height=300
+).interactive()
+
+st.altair_chart(chart2, use_container_width=False)
